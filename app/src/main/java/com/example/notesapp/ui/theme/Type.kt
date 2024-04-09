@@ -20,6 +20,11 @@ val modernFamily = FontFamily (
     Font(googleFont = googleFont, fontProvider = provider)
 )
 
+val mohaveFont = GoogleFont("Mohave")
+val mohaveFamily = FontFamily(
+    Font(googleFont = mohaveFont, fontProvider = provider)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
