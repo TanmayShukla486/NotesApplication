@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.notesapp.R
+import com.example.notesapp.navigation.Screens
 
 @Composable
 fun SplashScreen(
@@ -40,6 +41,8 @@ fun SplashScreen(
                 }
             ),
         )
+        navController.popBackStack()
+        navController.navigate(Screens.OnBoardingScreen.name)
     }
 
     Column (

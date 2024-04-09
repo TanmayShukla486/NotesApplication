@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.notesapp.data.classes.onBoardingPages
+import com.example.notesapp.navigation.Screens
 import com.example.notesapp.ui.components.OnBoardingPage
 import kotlinx.coroutines.launch
 
@@ -63,7 +64,10 @@ fun OnBoardingScreen(
                           )
                       }
                 },
-                onSkipClick = { /*TODO*/ },
+                onSkipClick = {
+                    navController.popBackStack()
+                    navController.navigate(Screens.HomeScreen.name)
+                },
                 pageIndex = pagerState.currentPage
             )
         }
