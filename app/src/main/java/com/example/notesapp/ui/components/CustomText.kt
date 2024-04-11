@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomText(
+    modifier: Modifier = Modifier,
     text: String,
     textColor: Color,
     fontFamily: FontFamily,
@@ -20,7 +21,7 @@ fun CustomText(
     onClick: () -> Unit = {}
 ) {
     Text(
-        modifier = Modifier.clickable { onClick.invoke() },
+        modifier = modifier.clickable { onClick.invoke() },
         text = text,
         style = TextStyle(
             fontFamily = fontFamily,
