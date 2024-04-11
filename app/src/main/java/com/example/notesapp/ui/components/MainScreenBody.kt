@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.example.notesapp.R
 import com.example.notesapp.ui.theme.mohaveFamily
 import com.example.notesapp.ui.theme.primaryColor
-import com.example.notesapp.ui.theme.secondaryColor
 
 @Composable
 fun MainScreenBody(
@@ -57,7 +56,7 @@ fun MainScreenBody(
                 Card (
                     modifier = card404Modifier,
                     colors = CardDefaults.cardColors(
-                        containerColor = secondaryColor
+                        containerColor = primaryColor
                     ),
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 25.dp
@@ -70,7 +69,7 @@ fun MainScreenBody(
                         modifier = modifier
                             .fillMaxWidth()
                             .padding(8.dp),
-                        text = "No notes found",
+                        text = "No Notes Found",
                         textColor = Color.White,
                         fontFamily = mohaveFamily,
                         fontSize = 20,
