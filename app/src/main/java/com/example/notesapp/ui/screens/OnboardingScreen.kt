@@ -1,6 +1,5 @@
 package com.example.notesapp.ui.screens
 
-import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -29,6 +28,22 @@ fun OnBoardingScreen(
     navController: NavController,
 ) {
     val scope = rememberCoroutineScope()
+    val pagerState = rememberPagerState (initialPage = 0, pageCount = {3})
+    val onNextClick: () -> Unit = {
+            val nextPage = pagerState.currentPage + 1
+            scope.launch {
+                pagerState.animateScrollToPage(
+                    page = nextPage.coerceAtMost(pagerState.pageCount - 1),
+                    animationSpec = tween(
+                        900,
+                    )
+                )
+            }
+    }
+    val onSkipClick = {
+        navController.popBackStack()
+        navController.navigate(Screens.HomeScreen.name)
+    }
     Column (
         modifier = modifier
             .background(color = Color(0xffF3725E))
@@ -36,9 +51,6 @@ fun OnBoardingScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val pagerState = rememberPagerState (initialPage = 0) {
-            3
-        }
         HorizontalPager(
             state = pagerState,
             userScrollEnabled = true,
@@ -50,24 +62,8 @@ fun OnBoardingScreen(
         ) {
             OnBoardingPage(
                 page = onBoardingPages[pagerState.currentPage],
-                onNextClick = {
-                      scope.launch {
-                          pagerState.animateScrollToPage(
-                              page = if (pagerState.currentPage + 1 < pagerState.pageCount)
-                              pagerState.currentPage + 1 else pagerState.currentPage,
-                              animationSpec = tween(
-                                  600,
-                                  easing = {
-                                      OvershootInterpolator(1.2f).getInterpolation(it)
-                                  }
-                              )
-                          )
-                      }
-                },
-                onSkipClick = {
-                    navController.popBackStack()
-                    navController.navigate(Screens.HomeScreen.name)
-                },
+                onNextClick = onNextClick,
+                onSkipClick = onSkipClick,
                 pageIndex = pagerState.currentPage
             )
         }
