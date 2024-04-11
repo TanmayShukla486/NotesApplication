@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
@@ -29,11 +30,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.example.notesapp.R
 import com.example.notesapp.data.classes.Page
 import com.example.notesapp.data.classes.onBoardingPages
 import com.example.notesapp.ui.theme.modernFamily
 import com.example.notesapp.ui.theme.mohaveFamily
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun OnBoardingPage(
     modifier: Modifier = Modifier,
@@ -42,21 +47,25 @@ fun OnBoardingPage(
     onSkipClick: () -> Unit,
     pageIndex: Int
 ) {
-    ElevatedCard (
-        modifier = modifier
-            .fillMaxSize()
-            .padding(25.dp)
-            .clip(
-                RoundedCornerShape(25.dp)
-            ),
-        elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation = 25.dp
+    val cardModifier = modifier
+        .fillMaxSize()
+        .padding(25.dp)
+        .clip(RoundedCornerShape(25.dp))
+
+    val rowModifier = Modifier
+        .fillMaxWidth()
+        .height(IntrinsicSize.Min)
+
+    val onClick = if (pageIndex != 2) onNextClick else onSkipClick
+    Card(
+        modifier = cardModifier,
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
         ),
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = Color.White,
-            contentColor = Color.Black
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 25.dp
         )
-    ) {
+    )  {
         Column (
             modifier = modifier
                 .fillMaxSize()
@@ -85,46 +94,37 @@ fun OnBoardingPage(
             }
 //            Spacer(modifier = modifier.height(75.dp))
             Row (
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(IntrinsicSize.Min)
+                modifier = rowModifier
             ) {
                 Image(
                     painter = painterResource(id = page.image),
                     contentDescription = null)
             }
-            Row (
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(IntrinsicSize.Min)
+            Column (
+                modifier = modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column (
-                    modifier = modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    CustomText(
-                        text = page.title,
-                        textColor = Color.Black,
-                        fontFamily = modernFamily,
-                        fontSize = 40)
-                    CustomText(
-                        text = page.desc,
-                        textColor = Color.Gray,
-                        fontFamily = mohaveFamily,
-                        fontSize = 20,
-                        align = TextAlign.Center)
-                }
+                CustomText(
+                    text = page.title,
+                    textColor = Color.Black,
+                    fontFamily = modernFamily,
+                    fontSize = 40)
+                CustomText(
+                    text = page.desc,
+                    textColor = Color.Gray,
+                    fontFamily = mohaveFamily,
+                    fontSize = 20,
+                    align = TextAlign.Center)
             }
 //            Spacer(modifier = modifier.height(125.dp))
             Row (
-                modifier
-                    .fillMaxWidth()
+                modifier = rowModifier
                     .padding(horizontal = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 PageIndicator(pageSize = 3, pageIndex = pageIndex)
                 IconButton(
-                    onClick = if (pageIndex != 2) onNextClick else onSkipClick
+                    onClick = onClick
                 ) {
                     Icon(
                         imageVector = Icons.Filled.ArrowForward,
