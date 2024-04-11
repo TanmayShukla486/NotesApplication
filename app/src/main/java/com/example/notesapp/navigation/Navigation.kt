@@ -1,10 +1,10 @@
 package com.example.notesapp.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.notesapp.ui.screens.MainScreen
 import com.example.notesapp.ui.screens.OnBoardingScreen
 import com.example.notesapp.ui.screens.SplashScreen
 
@@ -19,7 +19,7 @@ fun Navigation () {
             OnBoardingScreen(navController = navController)
         }
         composable(route = Screens.HomeScreen.name) {
-            Text(text = "Main Screen")
+            MainScreen(navController = navController)
         }
     }
 }
