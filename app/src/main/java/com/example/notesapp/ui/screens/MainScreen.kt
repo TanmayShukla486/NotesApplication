@@ -18,8 +18,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.notesapp.data.viewmodels.NoteViewModel
 import com.example.notesapp.navigation.Screens
 import com.example.notesapp.ui.components.MainScreenBody
 import com.example.notesapp.ui.components.TopNavBar
@@ -28,10 +30,12 @@ import com.example.notesapp.ui.theme.secondaryColor
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    notesList: List<String> = emptyList(),
-    navController: NavController,
-    onClickNewNote: () -> Unit = {}
+    notesViewModel: NoteViewModel,
+    onClickNewNote: () -> Unit,
+    navController: NavController
 ) {
+    // navigation function
+
     val iconModifier = modifier
         .size(50.dp)
         .background(secondaryColor)
@@ -44,11 +48,15 @@ fun MainScreen(
             ambientColor = Color.DarkGray,
             spotColor = Color.Black
         )
+    val onButtonClick = {
+        notesViewModel.removeAll()
+    }
     Scaffold (
         topBar = {
             TopNavBar(
                 title = "Notes",
-                screen = Screens.HomeScreen
+                screen = Screens.HomeScreen,
+                onButtonClick = onButtonClick
             )
         },
         floatingActionButton = {
@@ -67,7 +75,10 @@ fun MainScreen(
         Surface (
             modifier = modifier.padding(paddingValues = it)
         ) {
-            MainScreenBody()
+            MainScreenBody(
+                notesViewModel = notesViewModel,
+                navController = navController
+            )
         }
     }
 }
@@ -76,5 +87,6 @@ fun MainScreen(
 @Preview (showBackground = true)
 @Composable
 fun PreviewMainScreen() {
-    MainScreen(navController = rememberNavController())
+    MainScreen(onClickNewNote = {}, notesViewModel = viewModel(),
+    navController = rememberNavController())
 }

@@ -83,6 +83,7 @@ fun OnBoardingPage(
                     fontSize = 28)
                 CustomText(
                     text = "Skip",
+                    clickable = true,
                     textColor = Color.Gray,
                     fontFamily = modernFamily,
                     fontSize = 22,

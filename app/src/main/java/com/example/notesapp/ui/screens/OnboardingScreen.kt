@@ -35,7 +35,7 @@ fun OnBoardingScreen(
                 pagerState.animateScrollToPage(
                     page = nextPage.coerceAtMost(pagerState.pageCount - 1),
                     animationSpec = tween(
-                        900,
+                        500,
                     )
                 )
             }

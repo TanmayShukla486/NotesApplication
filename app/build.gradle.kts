@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -58,7 +58,9 @@ kapt {
 
 dependencies {
 
-    val lifecycleVersion = "2.7.0"
+
+    // ExoPlayer
+    implementation("com.google.android.exoplayer:exoplayer:2.15.1")
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -86,6 +88,7 @@ dependencies {
 
     // Room dependency
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.compiler)
 
@@ -98,6 +101,18 @@ dependencies {
 
     // Glide
     implementation(libs.compose)
+
+    // Material Icons
+    implementation(libs.androidx.material.icons.extended.android)
+
+    // Coil
+    implementation(libs.coil.compose)
+
+    // Glide
+    implementation(libs.glide.v4160)
+
+    // Permissions
+    implementation(libs.accompanist.permissions)
 
 
     implementation(libs.androidx.core.ktx)

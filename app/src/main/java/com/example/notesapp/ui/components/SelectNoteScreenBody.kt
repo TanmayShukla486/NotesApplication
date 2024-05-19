@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,7 +35,7 @@ import com.example.notesapp.ui.theme.mohaveFamily
 @Composable
 fun SelectNoteScreenBody(
     modifier: Modifier = Modifier,
-    onNextClick: () -> Unit = {},
+    onNextClick: (String) -> Unit = {},
     onExitClick: () -> Unit = {}
 ) {
     val cardModifier = modifier
@@ -47,7 +47,7 @@ fun SelectNoteScreenBody(
         .padding(16.dp)
         .fillMaxWidth()
     val imageModifier = modifier.size(220.dp)
-    val notesOptions = listOf("Basic Note", "Audio Note", "Video Note")
+    val notesOptions = listOf("Basic Note", "Video Note")
     val selectedOption = remember {
         mutableStateOf(notesOptions[0])
     }
@@ -106,8 +106,14 @@ fun SelectNoteScreenBody(
             modifier = rowModifier.height(IntrinsicSize.Min),
             horizontalArrangement = Arrangement.End
         ) {
-            IconButton(onClick = onNextClick) {
-                Icon(imageVector = Icons.Outlined.ArrowForward, contentDescription = null)
+            IconButton(onClick = { onNextClick.invoke(
+                when (selectedOption.value) {
+                    "Basic Note" -> "Normal"
+                    "Video Note" -> "Video"
+                    else -> "Select"
+                }
+            ) }) {
+                Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowForward, contentDescription = null)
             }
         }
     }

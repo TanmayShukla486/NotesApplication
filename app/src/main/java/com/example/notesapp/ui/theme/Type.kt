@@ -25,6 +25,11 @@ val mohaveFamily = FontFamily(
     Font(googleFont = mohaveFont, fontProvider = provider)
 )
 
+val ribeyeFont = GoogleFont("Ribeye Marrow")
+val ribeyeFamily = FontFamily(
+    Font(googleFont = googleFont, fontProvider = provider)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
